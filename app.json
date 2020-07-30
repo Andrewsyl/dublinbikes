@@ -1,0 +1,12 @@
+{
+  "name": "dubBike",
+  "displayName": "dubBike",
+  "expo": {
+    "name": "dubBike",
+    "slug": "dubBike",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
