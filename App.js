@@ -1,59 +1,68 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps"; // remove PROVIDER_GOOGLE import if not using Google Maps
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./components/HomeScreen";
 import AboutScreen from "./components/AboutScreen";
-import "react-native-gesture-handler";
 import Map from "./components/Map";
+import MyDrawer from "./components/Drawer";
+
+import "react-native-gesture-handler";
+// import MyDrawer from "./components/Drawer";
+// import Map from "./components/Map";
+// import { DB_API } from "@env";
 // import Fetch from "./components/bike_data";
 
-const API = `https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=32828b19f2a2b01425aafec8185f8c23d5312a0b`;
+// const DB_API = process.env.DB_API_KEY;
+
+const Screen = {
+  width: Dimensions.get("window").width,
+  height: Dimensions.get("window").height,
+};
 
 console.log("YES");
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
     height: "100%",
-    width: 400,
+    width: "100%",
     justifyContent: "flex-end",
     alignItems: "center",
   },
-  map: {
-    ...StyleSheet.absoluteFillObject,
+
+  mapContainer: {
+    width: Screen.width,
+    height: Dimensions.get("window").height,
+  },
+  mapDrawerOverlay: {
+    right: 50,
+    opacity: 0.0,
+    height: "100%",
+    width: 100,
+    backgroundColor: "rgba(255, 255, 255, 1)",
   },
 });
 
 const Drawer = createDrawerNavigator();
 
+// function MyDrawer() {
+//   return (
+//     <Drawer.Navigator initialRouteName="Map">
+//       <Drawer.Screen name="Home" component={HomeScreen} />
+//       <Drawer.Screen name="About" component={AboutScreen} />
+//       <Drawer.Screen name="Map" component={Map} />
+//     </Drawer.Navigator>
+//   );
+// }
+
 function App() {
-  const [selectedStation, setStation] = useState(null);
-  const [stationData, setStationData] = useState([]);
-  useEffect(() => {
-    fetch(
-      `https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=32828b19f2a2b01425aafec8185f8c23d5312a0b`
-    ).then((response) =>
-      response.json().then((data) => {
-        setStationData(data);
-        console.log("TEST");
-      })
-    );
-  }, []);
   return (
-    <View style={styles.container}>
-      <Map stationdata={this.props.station} />
-    </View>
+    <NavigationContainer>
+      <MyDrawer style={styles.mapDrawerOverlay} />
+    </NavigationContainer>
   );
-  // return (
-  //   <NavigationContainer>
-  //     <Drawer.Navigator initialRouteName="Home">
-  //       <Drawer.Screen name="Home" component={HomeScreen} />
-  //       <Drawer.Screen name="About" component={AboutScreen} />
-  //     </Drawer.Navigator>
-  //   </NavigationContainer>
-  // );
 }
 
 export default App;

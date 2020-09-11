@@ -1,12 +1,19 @@
-import React, { Component } from "react";
-import { Text, View } from "react-native";
+import React from "react";
+import { Button, SafeAreaView, View, Text, CustomHeader } from "react-native";
 
-export default class HomeScreen extends Component {
-  render() {
-    return (
+export default function AboutPage({ navigation }) {
+  const pressHander = () => {
+    navigation.navigate("About");
+  };
+
+  return (
+    <SafeAreaView>
+      {/* <CustomHeader title="HII" navigation={navigation} /> */}
       <View>
-        <Text> About Screen </Text>
+        {/* {pressHander}
+        <Text>About Page</Text>
+        <Button title="Go back" onPress={pressHander}></Button> */}
       </View>
-    );
-  }
+    </SafeAreaView>
+  );
 }

@@ -21,6 +21,8 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+google_maps_api.xml
+AndroidManifest.xml
 
 # Android/IntelliJ
 #
