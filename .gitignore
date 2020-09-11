@@ -23,6 +23,7 @@ DerivedData
 project.xcworkspace
 google_maps_api.xml
 AndroidManifest.xml
+.android\app\src\main\AndroidManifest.xml
 
 # Android/IntelliJ
 #
