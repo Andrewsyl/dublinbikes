@@ -9,7 +9,6 @@ import {
   AsyncStorage,
 } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps"; // remove PROVIDER_GOOGLE import if not using Google Maps
-import HomeScreen from "./HomeScreen";
 import { SafeAreaView } from "react-navigation";
 
 const Screen = {
@@ -34,38 +33,14 @@ const styles = StyleSheet.create({
 
 const MapData = ({ navigation }) => {
   const [stationData, setStationData] = useState([]);
-  const [fav, setFav] = useState([]);
 
   const save = async (station) => {
     try {
-      await AsyncStorage.setItem(station.name, JSON.stringify(station.name));
-      let test = await AsyncStorage.getItem("Fav");
-      if (test !== null) {
-        let hi = JSON.parse(test);
-        // await AsyncStorage.clear();
-        setFav((fav) => [...fav, hi.name]);
-      }
-    } catch (err) {
-      alert(err);
-    }
-  };
-
-  const load = async () => {
-    try {
-      let test = await AsyncStorage.getAllKeys();
-      if (test !== null) {
-        console.log(test);
-        setFav(test);
-      }
-    } catch (err) {
-      alert(err);
-    }
-  };
-
-  const remove = async (station) => {
-    try {
-      await AsyncStorage.removeItem(station.name);
-      load();
+      await AsyncStorage.setItem(
+        JSON.stringify(station.name),
+        JSON.stringify(station)
+      );
+      console.log(station.name);
     } catch (err) {
       alert(err);
     }
@@ -77,22 +52,12 @@ const MapData = ({ navigation }) => {
     ).then((response) =>
       response.json().then((data) => {
         setStationData(data);
-        console.log(data);
       })
     );
-    // load();
   }, []);
 
   return (
     <View>
-      <Text>{fav}</Text>
-      <SafeAreaView>
-        <Button
-          title="YO"
-          // navigation.toggleDrawer(),
-          onPress={() => navigation.toggleDrawer()}
-        />
-      </SafeAreaView>
       <MapView
         showsUserLocation={true}
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
@@ -113,21 +78,17 @@ const MapData = ({ navigation }) => {
               }}
               onPress={() => save(station)}
             >
-              <Text>{station.available_bikes}</Text>
+              {/* <Text>{station.available_bikes}</Text> */}
               <View>
                 <Image
                   source={require("../round-bike1.png")}
                   style={{ height: 35, width: 35 }}
                 ></Image>
-                {/* <Image
-                source={require("../round-bike1.png")}
-                style={{ height: 35, width: 35 }}
-              ></Image> */}
               </View>
-              <Callout onPress={() => remove(station)}>
+              <Callout>
                 <View style={{ width: 200 }}>
                   <Text>{station.name}</Text>
-                  <Text>{fav.length}</Text>
+                  <Text>{station.available_bikes}</Text>
                 </View>
               </Callout>
             </Marker>

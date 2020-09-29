@@ -1,4 +1,4 @@
-# Add Asyncstorage for favorites
+# Add Asyncstorage for favorites DONE
 # Add number of bikes and parking on marker
-# Finish routing
-# Add favorites + map tab
+# Finish routing DONE
+# Add favorites + map tab DONE
